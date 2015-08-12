@@ -1,0 +1,119 @@
+" Fletcher Woodruff's .vimrc
+
+set nocompatible " Remove vi compatibility. This must always be first
+
+filetype off
+
+" set rtp+=~/.vim/bundle/Vundle.vim
+
+" call vundle#begin()
+"
+" " Let Vundle  manage itself
+" Plugin 'gmarik/Vundle.vim'
+"
+" Plugin 'kien/ctrlp.vim'
+" Plugin 'tpope/vim-surround'
+" " Plugin 'tpope/vim-fugitive'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'nanotech/jellybeans.vim'
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'LaTeX-Box-Team/LaTeX-Box'
+" " Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
+"
+" call vundle#end()
+
+filetype plugin indent on
+
+" colorscheme jellybeans
+set background=dark
+
+
+" CtrlP settings
+let g:ctrlp_follow_symlinks = 1
+
+" Easily jump around in Ctrl P
+map ; :CtrlPBuffer<CR>
+
+" Ignore these directories
+set wildignore+=*/Library/**
+set wildignore+=*/Ebooks/**
+set wildignore+=*/Photoshop/**
+set wildignore+=*/Pokemon/**
+set wildignore+=*/Camera\ Uploads/**
+set wildignore+=*/Keepass/**
+set wildignore+=*/packages/**
+
+let g:syntastic_C_checkers = ['gcc']
+let g:syntastic_tex_checkers = ['chktex']
+
+
+" Make tabbing sane (width 4)
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+
+syntax enable               " Enable syntax highlighting
+set number                  " Enable line numbers
+set autoindent              " Autoindent on new lines
+set ruler                   " Show bottom ruler
+set showmatch               " Highlight matching braces
+set formatoptions=croq      " Enable comment line auto formatting
+set t_Co=256                " 256 color
+set encoding=utf-8          " UTF-8 character encoding
+set title                   " Set window title to file
+set hlsearch                " Highlight on search
+set ignorecase              " Search ignoring case
+set smartcase               " Search using smartcase
+set incsearch               " Start searching immediately
+set scrolloff=5             " Never scroll off
+set wildmode=longest,list   " Better unix-like tab completion
+set cursorline              " Highlight current line
+set clipboard=unnamed       " Copy and paste from system clipboard
+set lazyredraw              " Don't redraw while running macros (faster)
+set autochdir               " Change directory to currently open file
+set wrap                    " Visually wrap lines
+set linebreak               " Only wrap on 'good' characters for wrapping
+set ttyfast                 " Speed up vim
+set nostartofline           " Vertical movement preserves horizontal position
+
+:nmap \q :nohlsearch<CR>
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" SML signature files
+au BufRead,BufNewFile *.sig setlocal filetype=sml
+
+" Ignore junk files
+set wildignore+=*.o,*.obj,*.class,*.swp,*.pyc
+
+" Refresh .vimrc with \rr
+map <leader>rr :source ~/.vimrc<CR>
+
+" Run a make file with \m
+:map <F5> :make<CR>
+
+" Jump to editing last buffer
+:nmap <C-e> :e#<CR>
+
+" Jump to editing next buffer
+:nmap <C-j> :bnext<CR>
+
+" Jump to editing previous buffer
+:nmap <C-k> :bprev<CR>
+
+" Quick open/close for Nerd Tree
+:nmap <leader>e :NERDTreeToggle<CR>
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+" Change to silent! pclose to preserve command edit window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" Only use YCM for C, C++, and Python
+let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'python': 1 }
+
+" Strip whitespace from end of lines when writing file
+autocmd BufWritePre * :%s/\s\+$//e
