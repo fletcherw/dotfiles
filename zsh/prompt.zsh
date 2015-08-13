@@ -55,7 +55,7 @@ dir_name() {
   echo "%{$fg_bold[blue]%}%~%{$reset_color%}"
 }
 
-export PROMPT=$'$(host_name) in $(dir_name) $(git_dirty)$(need_push)\n› '
+export PROMPT=$'\n$(host_name) in $(dir_name) $(git_dirty)$(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }

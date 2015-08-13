@@ -1,6 +1,9 @@
-[submodule "antigen"]
-	path = antigen
-	url = https://github.com/zsh-users/antigen.git
 [submodule "dependencies/antigen"]
 	path = dependencies/antigen
 	url = https://github.com/zsh-users/antigen.git
+[submodule "dependencies/vundle"]
+	path = dependencies/vundle
+	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule "dependencies/powerlinefonts"]
+	path = dependencies/powerlinefonts
+	url = https://github.com/powerline/fonts.git

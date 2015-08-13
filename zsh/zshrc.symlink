@@ -1,6 +1,6 @@
 
 # shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
+export ZSH=$HOME/dotfiles
 
 source $ZSH/dependencies/antigen/antigen.zsh
 
@@ -11,10 +11,11 @@ export PATH=$ZSH/bin:$PATH
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle pip
-antigen bundle lein
 antigen bundle command-not-found
+antigen bundle colored-man
+antigen bundle git
+antigen bundle lein
+antigen bundle pip
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting

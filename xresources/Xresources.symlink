@@ -1,0 +1,46 @@
+urxvt*background:[80]#171717
+urxvt*foreground:#FFFFCC
+urxvt*cursorColor:#2267b5
+urxvt*colorbd:#FFFFCC
+
+! blacks (dark,light)
+urxvt*color0:#393939
+urxvt*color8:#595959
+
+! reds
+urxvt*color1:#be2422
+urxvt*color9:#be2422
+
+! greens
+urxvt*color2:#228c4a
+urxvt*color10:#228c4a
+
+! yellows
+urxvt*color3:#8c7f22
+urxvt*color11:#8c7f22
+
+! blues
+urxvt*color4:#2267a5
+urxvt*color12:#2267a5
+
+! magentas
+urxvt*color5:#8a65aa
+urxvt*color13:#8a65aa
+
+! cyans
+urxvt*color6:#2267a5
+urxvt*color14:#2267a5
+
+! whites
+urxvt*color7:#C8B55B
+urxvt*color15:#E4DC8C
+
+urxvt*depth:32
+urxvt*scrollBar:false
+urxvt*internalBorder:2
+urxvt*externalBorder:2
+urxvt*font:xft:Inconsolata:size=11
+
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
