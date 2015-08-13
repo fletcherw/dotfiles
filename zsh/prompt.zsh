@@ -46,11 +46,16 @@ need_push () {
   fi
 }
 
-directory_name() {
-  echo "%{$fg_bold[cyan]%}%~%{$reset_color%}"
+host_name() {
+  echo -n "%{$fg[green]%}%n%{$reset_color%}@"
+  echo "%{$fg[cyan]%}%m%{$reset_color%}"
 }
 
-export PROMPT=$'%n@%m in $(directory_name) $(git_dirty)$(need_push)\n› '
+dir_name() {
+  echo "%{$fg_bold[blue]%}%~%{$reset_color%}"
+}
+
+export PROMPT=$'$(host_name) in $(dir_name) $(git_dirty)$(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
