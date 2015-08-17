@@ -10,7 +10,9 @@ call vundle#begin('~/dotfiles/vim/plugins')
 " Let Vundle  manage itself
 Plugin 'VundleVim/Vundle.vim'
 
+" ----- Sexy colors and UI stuff --------------------------------------
 Plugin 'bling/vim-airline'
+Plugin 'morhetz/gruvbox'
 
 " ----- Vim as a programmer's text editor -----------------------------
 Plugin 'scrooloose/nerdtree'
@@ -35,19 +37,19 @@ Plugin 'tpope/vim-surround'
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
 Plugin 'ntpeters/vim-better-whitespace'
-" Automaticall insert the closing HTML tag
+" Automatically insert the closing HTML tag
 Plugin 'HTML-AutoCloseTag'
 " Make tmux look like vim-airline (read README for extra instructions)
 "Plugin 'edkolev/tmuxline.vim'
 
-" Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
+Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
 
 call vundle#end()
 
 filetype plugin indent on
 
+colorscheme gruvbox
 set background=dark
-
 
 " CtrlP settings
 let g:ctrlp_follow_symlinks = 1
@@ -67,11 +69,12 @@ set wildignore+=*/packages/**
 let g:syntastic_C_checkers = ['gcc']
 let g:syntastic_tex_checkers = ['chktex']
 
-" Make tabbing sane (width 4)
+" Make tabbing sane (width 2)
 set expandtab
 set smarttab
-set shiftwidth=4
-set tabstop=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 
 syntax enable               " Enable syntax highlighting
 set number                  " Enable line numbers
@@ -94,11 +97,33 @@ set lazyredraw              " Don't redraw while running macros (faster)
 set autochdir               " Change directory to currently open file
 set wrap                    " Visually wrap lines
 set linebreak               " Only wrap on 'good' characters for wrapping
+set splitright              " Vertical splits use right half of screen
+set splitbelow              " Horizontal splits use bottom half of screen
+set timeoutlen=1000         " Lower ^[ timeout
+set fillchars=fold:\ ,      " get rid of obnoxious '-' characters in folds
 set ttyfast                 " Speed up vim
 set nostartofline           " Vertical movement preserves horizontal position
 set showcmd
 
+" Show potential matches above completion, complete first immediately
+set wildmenu
+set wildmode=full
+
 set mouse=a
+
+" Force write readonly files using sudo
+command! WS w !sudo tee %
+
+" Make navigating long, wrapped lines behave like normal lines
+noremap <silent> k gk
+noremap <silent> j gj
+noremap <silent> 0 g0
+noremap <silent> $ g$
+noremap <silent> ^ g^
+noremap <silent> _ g_
+
+" use 'Y' to yank to the end of a line, instead of the whole line
+noremap <silent> Y y$
 
 " ----- Plugin-Specific Settings --------------------------------------
 
@@ -134,7 +159,6 @@ augroup mySyntastic
   au FileType tex let b:syntastic_mode = "passive"
 augroup END
 
-
 " ----- xolox/vim-easytags settings -----
 " Where to look for tags files
 set tags=./tags;,~/.vimtags
@@ -158,14 +182,13 @@ hi clear SignColumn
 " In vim-airline, only display "hunks" if the diff is non-zero
 let g:airline#extensions#hunks#non_zero_only = 1
 
-
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
 augroup mydelimitMate
   au!
   au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
   au FileType tex let b:delimitMate_quotes = ""
-  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:',$:$"
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
@@ -197,6 +220,9 @@ map <leader>rr :source ~/.vimrc<CR>
 " Quick open/close for Nerd Tree
 :nmap <leader>e :NERDTreeToggle<CR>
 
+" Jump to definition
+:nmap <leader>j :YcmCompleter GoTo<cr>
+
 " If you prefer the Omni-Completion tip window to close when a selection is
 " made, these lines close it on movement in insert mode or when leaving
 " insert mode
@@ -205,7 +231,7 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Only use YCM for C, C++, and Python
-let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'python': 1 }
+" let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'python': 1 }
 
 " Strip whitespace from end of lines when writing file
 autocmd BufWritePre * :%s/\s\+$//e
