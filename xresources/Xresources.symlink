@@ -39,7 +39,7 @@ urxvt*depth:32
 urxvt*scrollBar:false
 urxvt*internalBorder:2
 urxvt*externalBorder:2
-urxvt*font:xft:Inconsolata:size=11
+urxvt*font:xft:Terminess Powerline:size=10
 
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/firefox

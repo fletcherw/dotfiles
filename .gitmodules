@@ -7,3 +7,6 @@
 [submodule "dependencies/powerlinefonts"]
 	path = dependencies/powerlinefonts
 	url = https://github.com/powerline/fonts.git
+[submodule "dependencies/siji"]
+	path = dependencies/siji
+	url = https://github.com/gstk/siji
