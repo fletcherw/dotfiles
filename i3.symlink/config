@@ -6,8 +6,8 @@
 
 set $mod Mod4
 
-set $w1 1
-set $w2 2
+set $w1 1:web
+set $w2 2:term
 set $w3 3
 set $w4 4
 set $w5 5
@@ -20,12 +20,20 @@ set $w0 10
 
 # ----- Visual Appearance ------------------------------------------------------
 
-set $blue  #005588
-set $gray1 #484848
-set $gray2 #333333
-client.focused		      $gray1   $gray1   #FFFFFF   #333333
-client.focused_inactive   $gray2   $gray2   #FFFFFF   #000000
-client.unfocused          $gray2   $gray2   #FFFFFF   #000000
+set $bar_bg     #303030
+set $bar_status #ACACAC
+
+set $gray1  #646464
+set $gray2  #494949
+set $white  #FFFFCC
+set $red    #BE2422
+set $green  #228C4A
+set $blue   #2267A5
+
+# class                   border   backgr   text      indicator
+client.focused		        $gray1   $gray1   $white    $blue
+client.focused_inactive   $gray2   $gray2   $white    $gray2
+client.unfocused          $gray2   $gray2   $white    $gray2
 
 new_window pixel 3
 
@@ -34,26 +42,63 @@ new_window pixel 3
 font -*-terminus-*-*-*-*-*-*-*-*-*-*-*-*
 
 
+# ---- Status Bar Setup --------------------------------------------------------
+
+bar {
+	position top
+    status_command i3blocks -c ~/.i3/i3blocks.conf
+
+  # Normal Font with Icon Fallback
+	font pango:Terminess Powerline, Siji 10px
+  strip_workspace_numbers yes
+
+  separator_symbol " "
+
+
+	colors {
+		background $bar_bg
+		statusline $bar_status
+
+    #name              border  backgr  text
+		focused_workspace  $bar_bg  $bar_bg  $white
+		inactive_workspace $bar_bg  $bar_bg  #999999
+	}
+}
+
+
 # ----- Startup Scripts --------------------------------------------------------
 
 # Start Dropbox client
-exec --no-startup-id ~/.dropbox-dist/dropboxd
+exec --no-startup-id dropbox start
+
+# Start internet applet
+exec --no-startup-id nm-applet
 
 # Disable trackpad
 exec xinput disable 11
+
+# Make icon fonts work
+exec --no-startup-id xset +fp /home/fletcher/.fonts
+exec --no-startup-id xset fp rehash
+
+# Window compositing
+exec compton
+
+# Show wallpaper
+exec sh ~/.fehbg
 
 
 # ----- Custom Keybindings -----------------------------------------------------
 
 # Power Management
-set $mode_system System (l)ock, l(o)gout, (s)uspend, (h)ibernate, (r)eboot, (S)hutdown
+set $mode_system System: (l)ock, l(o)gout, (s)uspend, (h)ibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id ~/.i3/scripts/i3exit lock, mode "default"
-    bindsym e exec --no-startup-id ~/.i3/scripts/i3exit logout, mode "default"
-    bindsym s exec --no-startup-id ~/.i3/scripts/i3exit suspend, mode "default"
-    bindsym h exec --no-startup-id ~/.i3/scripts/i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id ~/.i3/scripts/i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id ~/.i3/scripts/i3exit shutdown, mode "default"
+    bindsym l exec ~/dotfiles/bin/i3exit lock, mode "default"
+    bindsym e exec ~/dotfiles/bin/i3exit logout, mode "default"
+    bindsym s exec ~/dotfiles/bin/i3exit suspend, mode "default"
+    bindsym h exec ~/dotfiles/bin/i3exit hibernate, mode "default"
+    bindsym r exec ~/dotfiles/bin/i3exit reboot, mode "default"
+    bindsym Shift+s exec ~/dotfiles/bin/i3exit shutdown, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -68,6 +113,11 @@ bindsym $mod+Escape mode "$mode_system"
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- unmute && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ unmute && pkill -RTMIN+10 i3blocks
+
+
+# Window Switching
+bindsym Mod1+Tab     exec quickswitch.py
+bindsym $mod+Tab     workspace back_and_forth
 
 
 # mpd
@@ -89,7 +139,6 @@ floating_modifier $mod
 focus_follows_mouse no
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec urxvt
 
 # kill focused window
@@ -97,7 +146,6 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
  bindsym $mod+d exec dmenu_run -i -l 10
-# bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu='dmenu -i -l 10'
 
 # change focus
 bindsym $mod+h focus left
@@ -202,26 +250,3 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-
-# ---- Status Bar Setup --------------------------------------------------------
-
-bar {
-	position top
-    status_command py3status -c ~/.i3/i3status.conf
-
-  # Normal Font with Icon Fallback
-	font pango:Terminess Powerline, Siji 10px
-
-  separator_symbol ""
-
-
-	colors {
-		background #303030
-		statusline #AAAAAA
-
-    #name              #border #background #text
-		focused_workspace  $gray2  $gray2      #FFFFFF
-		inactive_workspace $gray2  $gray2      #999999
-	}
-}

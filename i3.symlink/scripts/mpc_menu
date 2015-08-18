@@ -1,0 +1,20 @@
+#!/bin/bash
+
+case "$(echo -e "Artist\nTrack\nPlaylist\nJump\nLong Player" | dmenu -i -l 10)" in
+    Artist)
+        ~/.i3/scripts/mpc_control -a
+        ;;
+    Track)
+        ~/.i3/scripts/mpc_control -t
+        ;;
+    Playlist)
+        ~/.i3/scripts/mpc_control -p
+        ;;
+    Jump)
+        ~/.i3/scripts/mpc_control -j
+        ;;
+    "Long Player")
+        ~/.i3/scripts/mpc_control -l
+        ;;
+esac
+

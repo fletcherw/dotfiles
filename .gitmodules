@@ -10,3 +10,6 @@
 [submodule "dependencies/siji"]
 	path = dependencies/siji
 	url = https://github.com/gstk/siji
+[submodule "dependencies/i3blocks"]
+	path = dependencies/i3blocks
+	url = https://github.com/vivien/i3blocks

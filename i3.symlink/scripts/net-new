@@ -24,7 +24,7 @@ if [ "$state" != "up" ]; then
 	if [ "$state" != "up" ]; then
 		echo "down"
 		echo "down"
-		echo "FF5555"
+		echo "#BE2422"
 	fi
 
 	ssid="$(iwgetid | cut -d'"' -f2)"
@@ -35,7 +35,7 @@ if [ "$state" != "up" ]; then
 
 	# full text
 	# echo "$ssid at $speed Mbps ($ipaddr)"
-	echo "$ssid [$speed Mbps] "
+  echo "$ssid [$speed Mbps]"
 
 	# short text
 	echo "$ssid"
@@ -49,8 +49,7 @@ ipaddr="$(ip addr show $INTERFACE | perl -n -e'/inet (.+)\// && print $1')"
 ipaddr="${ipaddr:-0.0.0.0}"
 
 # full text
-#echo "eth0 at $speed Mbps ($ipaddr)"
-echo "eth0 [$speed Mbps]"
+echo "eth0 [$speed Mbps]"
 
 # short text
 echo "$ipaddr"

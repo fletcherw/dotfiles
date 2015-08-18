@@ -2,7 +2,6 @@
 
 set nocompatible " Remove vi compatibility. This must always be first
 filetype off
-
 set rtp+=~/dotfiles/dependencies/vundle
 
 call vundle#begin('~/dotfiles/vim/plugins')
@@ -12,7 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " ----- Sexy colors and UI stuff --------------------------------------
 Plugin 'bling/vim-airline'
-Plugin 'morhetz/gruvbox'
+Plugin 'nanotech/jellybeans.vim'
 
 " ----- Vim as a programmer's text editor -----------------------------
 Plugin 'scrooloose/nerdtree'
@@ -25,6 +24,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'cmugpi/vim-c0'
+Plugin 'easymotion/vim-easymotion'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
@@ -46,10 +46,22 @@ Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
 
 call vundle#end()
 
-filetype plugin indent on
+" let g:jellybeans_overrides = {
+" \  'Normal' : {'ctermbg' : 'None'}
+" \}
 
-colorscheme gruvbox
 set background=dark
+colorscheme jellybeans
+
+hi Normal             ctermbg=NONE
+hi Statement          ctermbg=NONE
+hi Title              ctermbg=NONE
+hi Todo               ctermbg=NONE
+hi Underlined         ctermbg=NONE
+hi ErrorMsg           ctermbg=NONE
+hi LineNr             ctermbg=NONE
+
+filetype plugin indent on
 
 " CtrlP settings
 let g:ctrlp_follow_symlinks = 1
@@ -152,7 +164,7 @@ nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 0
 
 " ----- scrooloose/syntastic settings -----
-let g:syntastic_error_symbol = '✘'
+let g:syntastic_error_symbol = 'x'
 " let g:syntastic_warning_symbol = "▲"
 augroup mySyntastic
   au!
@@ -192,7 +204,7 @@ augroup mydelimitMate
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
-:nmap \q :nohlsearch<CR>
+nmap \q :nohlsearch<CR>
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
@@ -216,6 +228,9 @@ map <leader>rr :source ~/.vimrc<CR>
 
 " Jump to editing previous buffer
 :nmap <C-k> :bprev<CR>
+
+" Easy motions with Ctrl+m
+:nmap <C-m> <Plug>(easymotion-prefix)
 
 " Quick open/close for Nerd Tree
 :nmap <leader>e :NERDTreeToggle<CR>

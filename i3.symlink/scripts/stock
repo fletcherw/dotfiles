@@ -1,0 +1,5 @@
+price=`curl -s 'http://download.finance.yahoo.com/d/quotes.csv?s=vttsx&f=l1'`
+holdings=102.4240355
+
+value=`echo $price \\* $holdings | bc`
+printf "%.2f" $value

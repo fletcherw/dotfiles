@@ -1,4 +1,4 @@
-urxvt*background:[80]#171717
+urxvt*background:[93]#171717
 urxvt*foreground:#FFFFCC
 urxvt*cursorColor:#2267b5
 urxvt*colorbd:#FFFFCC
@@ -32,8 +32,8 @@ urxvt*color6:#2267a5
 urxvt*color14:#2267a5
 
 ! whites
-urxvt*color7:#C8B55B
-urxvt*color15:#E4DC8C
+urxvt*color7:#c8b55b
+urxvt*color15:#e4dc8c
 
 urxvt*depth:32
 urxvt*scrollBar:false

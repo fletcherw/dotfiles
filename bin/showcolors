@@ -1,0 +1,11 @@
+#!/bin/bash
+
+xdef=( $(cat ~/.Xresources | grep "color[0-9]" | cut -d '*' -f2 | cut -c 6- | sort -t : -k 1 -n | cut -d ':' -f2) )
+
+# colors=( $( sed -re '/^!/d; /^$/d; /^#/d; s/(\*color)([0-9]):/\10\2:/g;' $xdef | grep 'color[01][0-9]:' | sort | sed  's/^.*: *//g' ) )
+
+echo
+for i in {0..7}; do echo -en "\e[$((30+$i))m\u2588\u2588 ${xdef[i]} \e[0m"; done
+echo
+for i in {8..15}; do echo -en "\e[1;$((22+$i))m\u2588\u2588 ${xdef[i]} \e[0m"; done
+echo -e "\n"

@@ -1,4 +1,5 @@
-install py3status using pip
 install i3 and packages
+install i3blocks
 install j4
+install python-xpyb
 setup vim fonts
