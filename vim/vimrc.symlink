@@ -2,16 +2,18 @@
 
 set nocompatible " Remove vi compatibility. This must always be first
 filetype off
-set rtp+=~/dotfiles/dependencies/vundle
+set rtp+=~/.dotfiles/dependencies/vundle
 
-call vundle#begin('~/dotfiles/vim/plugins')
+call vundle#begin('~/.dotfiles/vim/plugins')
 
 " Let Vundle  manage itself
 Plugin 'VundleVim/Vundle.vim'
 
 " ----- Sexy colors and UI stuff --------------------------------------
 Plugin 'bling/vim-airline'
+Plugin 'chriskempson/base16-vim'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'morhetz/gruvbox'
 
 " ----- Vim as a programmer's text editor -----------------------------
 Plugin 'scrooloose/nerdtree'
@@ -28,6 +30,7 @@ Plugin 'easymotion/vim-easymotion'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
+Plugin 'mhinz/vim-signify'
 Plugin 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
@@ -46,28 +49,20 @@ Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
 
 call vundle#end()
 
-" let g:jellybeans_overrides = {
-" \  'Normal' : {'ctermbg' : 'None'}
-" \}
-
-set background=dark
-colorscheme jellybeans
-
-hi Normal             ctermbg=NONE
-hi Statement          ctermbg=NONE
-hi Title              ctermbg=NONE
-hi Todo               ctermbg=NONE
-hi Underlined         ctermbg=NONE
-hi ErrorMsg           ctermbg=NONE
-hi LineNr             ctermbg=NONE
-
 filetype plugin indent on
 
 " CtrlP settings
-let g:ctrlp_follow_symlinks = 1
 
-" Easily jump around in Ctrl P
-map ; :CtrlPBuffer<CR>
+" Use ag if we have it
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+let g:ctrlp_follow_symlinks = 1
 
 " Ignore these directories
 set wildignore+=*/Library/**
@@ -76,7 +71,6 @@ set wildignore+=*/Photoshop/**
 set wildignore+=*/Pokemon/**
 set wildignore+=*/Camera\ Uploads/**
 set wildignore+=*/Keepass/**
-set wildignore+=*/packages/**
 
 let g:syntastic_C_checkers = ['gcc']
 let g:syntastic_tex_checkers = ['chktex']
@@ -116,6 +110,17 @@ set fillchars=fold:\ ,      " get rid of obnoxious '-' characters in folds
 set ttyfast                 " Speed up vim
 set nostartofline           " Vertical movement preserves horizontal position
 set showcmd
+
+set background=dark
+colorscheme gruvbox
+
+hi Normal             ctermbg=NONE
+hi Statement          ctermbg=NONE
+hi Title              ctermbg=NONE
+hi Todo               ctermbg=NONE
+hi Underlined         ctermbg=NONE
+hi ErrorMsg           ctermbg=NONE
+hi LineNr             ctermbg=NONE
 
 " Show potential matches above completion, complete first immediately
 set wildmenu
@@ -217,6 +222,9 @@ set wildignore+=*.o,*.obj,*.class,*.swp,*.pyc
 " Refresh .vimrc with <leader>rr
 map <leader>rr :source ~/.vimrc<CR>
 
+" Reload .vimrc after saving
+autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
+
 " Run a make file with <leader>m
 :map <leader>m :make<CR>
 
@@ -250,3 +258,5 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Strip whitespace from end of lines when writing file
 autocmd BufWritePre * :%s/\s\+$//e
+
+autocmd VimEnter * nested :source ~/.vimrc

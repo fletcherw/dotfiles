@@ -3,3 +3,6 @@ install i3blocks
 install j4
 install python-xpyb
 setup vim fonts
+setup kerberos
+  apt-get install krb5-user krb5-config openafs-client openafs-krb5
+  module-assistant openafs-modules-dkm
