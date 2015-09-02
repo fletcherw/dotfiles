@@ -1,3 +1,3 @@
 alias reload!='. ~/.zshrc'
 
-alias al='kinit jwoodruf && aklog'
+alias al='kinit -f jwoodruf && aklog'

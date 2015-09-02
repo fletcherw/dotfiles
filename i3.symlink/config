@@ -8,7 +8,7 @@ set $mod Mod4
 
 set $w1 1:web
 set $w2 2:term
-set $w3 3
+set $w3 3:work
 set $w4 4
 set $w5 5
 set $w6 6
@@ -21,7 +21,7 @@ set $w0 10
 # ----- Visual Appearance ------------------------------------------------------
 
 set $bar_bg     #303030
-set $bar_status #ACACAC
+set $bar_status #CCCCCC
 
 set $gray1  #646464
 set $gray2  #494949
@@ -61,7 +61,7 @@ bar {
 
     #name              border  backgr  text
 		focused_workspace  $bar_bg  $bar_bg  $white
-		inactive_workspace $bar_bg  $bar_bg  #999999
+		inactive_workspace $bar_bg  $bar_bg  #AAAAAA
 	}
 }
 
@@ -77,6 +77,9 @@ exec --no-startup-id nm-applet
 # Start password manager
 exec --no-startup-id keepassx
 
+# Start mpd
+exec --no-startup-id mpd
+
 # Disable trackpad
 exec xinput disable 11
 
@@ -86,6 +89,9 @@ exec --no-startup-id xset fp rehash
 
 # Window compositing
 exec compton
+
+# Notifications
+exec dunst -c ~/.config/dunst/dunstrc
 
 # Show wallpaper
 exec sh ~/.fehbg
@@ -127,7 +133,6 @@ bindsym $mod+Tab     workspace back_and_forth
 bindsym Ctrl+Right    exec mpc next && pkill -RTMIN+11 i3blocks
 bindsym Ctrl+Left     exec mpc prev && pkill -RTMIN+11 i3blocks
 bindsym Ctrl+Down     exec mpc toggle && pkill -RTMIN+11 i3blocks
-bindsym Ctrl+Shift+Up exec mpc del 0 && pkill -RTMIN+11 i3blocks
 
 
 # bindsym $mod+m       exec ~/.i3/scripts/mpc_control -j && pkill -RTMIN+11 i3blocks
@@ -135,6 +140,9 @@ bindsym Ctrl+Shift+Up exec mpc del 0 && pkill -RTMIN+11 i3blocks
 
 
 # ----- Window Management Bindings ---------------------------------------------
+
+# Move workspace to next monitor
+bindsym $mod+x move workspace to output right
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

@@ -45,7 +45,7 @@ Plugin 'HTML-AutoCloseTag'
 " Make tmux look like vim-airline (read README for extra instructions)
 "Plugin 'edkolev/tmuxline.vim'
 
-Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
+" Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
 
 call vundle#end()
 
@@ -205,7 +205,7 @@ augroup mydelimitMate
   au!
   au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
   au FileType tex let b:delimitMate_quotes = ""
-  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:',$:$"
+  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
@@ -220,13 +220,13 @@ au BufRead,BufNewFile *.sig setlocal filetype=sml
 set wildignore+=*.o,*.obj,*.class,*.swp,*.pyc
 
 " Refresh .vimrc with <leader>rr
-map <leader>rr :source ~/.vimrc<CR>
+nmap <leader>rr :source ~/.vimrc<CR>
 
 " Reload .vimrc after saving
 autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
 
 " Run a make file with <leader>m
-:map <leader>m :make<CR>
+:nmap <leader>m :make latex<CR>
 
 " Jump to editing last buffer
 :nmap <C-e> :e#<CR>
@@ -255,8 +255,5 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Only use YCM for C, C++, and Python
 " let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'python': 1 }
-
-" Strip whitespace from end of lines when writing file
-autocmd BufWritePre * :%s/\s\+$//e
 
 autocmd VimEnter * nested :source ~/.vimrc
