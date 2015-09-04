@@ -117,6 +117,19 @@ mode "$mode_system" {
 
 bindsym $mod+Escape mode "$mode_system"
 
+set $mode_display Display: (d)ock, (u)ndock
+mode "$mode_display" {
+    bindsym d exec ~/.screenlayout/docked.sh, mode "default"
+    bindsym u exec ~/.screenlayout/undocked.sh, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Shift+Escape mode "default"
+}
+
+bindsym $mod+Shift+Escape mode "$mode_display"
+
 
 # Audio Control
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- unmute && pkill -RTMIN+10 i3blocks
