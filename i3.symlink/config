@@ -80,9 +80,6 @@ exec --no-startup-id keepassx
 # Start mpd
 exec --no-startup-id mpd
 
-# Disable trackpad
-exec xinput disable 11
-
 # Make icon fonts work
 exec --no-startup-id xset +fp /home/fletcher/.fonts
 exec --no-startup-id xset fp rehash
