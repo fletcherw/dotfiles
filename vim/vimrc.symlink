@@ -226,7 +226,7 @@ nmap <leader>rr :source ~/.vimrc<CR>
 autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
 
 " Run a make file with <leader>m
-:nmap <leader>m :make latex<CR>
+:nmap <F5> :make latex<CR>
 
 " Jump to editing last buffer
 :nmap <C-e> :e#<CR>

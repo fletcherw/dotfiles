@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/home/fletcher/.screenlayout/undocked.sh && /home/fletcher/.fehbg
