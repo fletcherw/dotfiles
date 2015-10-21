@@ -93,6 +93,10 @@ exec dunst -c ~/.config/dunst/dunstrc
 # Show wallpaper
 exec sh ~/.fehbg
 
+# Bluetooth
+exec blueman-applet
+exec pactl load-module module-bluetooth-discover 
+
 
 # ----- Custom Keybindings -----------------------------------------------------
 
@@ -170,7 +174,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
- bindsym $mod+d exec dmenu_run -i -l 10
+ bindsym $mod+d exec dmenu_run -i -l 10 -fn "Terminess Powerline"
 
 # change focus
 bindsym $mod+h focus left

@@ -5,6 +5,7 @@ export ZSH=$HOME/.dotfiles
 source $ZSH/dependencies/antigen/antigen.zsh
 
 export PATH=$ZSH/bin:$PATH
+export PATH=/home/fletcher/Downloads/jdk/bin:$PATH
 
 
 # Load the oh-my-zsh's library.

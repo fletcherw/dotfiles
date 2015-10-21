@@ -45,7 +45,7 @@ Plugin 'HTML-AutoCloseTag'
 " Make tmux look like vim-airline (read README for extra instructions)
 "Plugin 'edkolev/tmuxline.vim'
 
-" Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
+Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
 
 call vundle#end()
 
@@ -226,7 +226,7 @@ nmap <leader>rr :source ~/.vimrc<CR>
 autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
 
 " Run a make file with <leader>m
-:nmap <F5> :make latex<CR>
+:nmap <F5> :make<CR>
 
 " Jump to editing last buffer
 :nmap <C-e> :e#<CR>
