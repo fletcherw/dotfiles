@@ -14,8 +14,8 @@ set $w5 5
 set $w6 6
 set $w7 7
 set $w8 8
-set $w9 9
-set $w0 10
+set $w9 9:chat
+set $w0 10:music
 
 
 # ----- Visual Appearance ------------------------------------------------------
@@ -75,10 +75,13 @@ exec --no-startup-id dropbox start
 exec --no-startup-id nm-applet
 
 # Start password manager
-exec --no-startup-id keepassx
+exec --no-startup-id keepassx && i3-msg move [instance="keepassx"] to $w8
 
 # Start mpd
 exec --no-startup-id mpd
+
+# Disable trackpad
+exec --no-startup-id xinut --disable "SynPS/2 Synaptics TouchPad"
 
 # Make icon fonts work
 exec --no-startup-id xset +fp /home/fletcher/.fonts
@@ -138,7 +141,7 @@ bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ unmute && p
 
 
 # Window Switching
-bindsym Mod1+Tab     exec quickswitch.py
+bindsym $mod+c       exec quickswitch.py
 bindsym $mod+Tab     workspace back_and_forth
 
 
@@ -164,7 +167,7 @@ focus_follows_mouse no
 
 # toggle scratchpad
 bindsym $mod+Shift+m move scratchpad
-bindsym $mod+m scratchpad show
+bindsym $mod+o scratchpad show
 
 # start a terminal
 bindsym $mod+Return exec urxvt
