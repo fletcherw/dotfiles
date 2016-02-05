@@ -1,0 +1,4 @@
+#!/bin/bash
+# Script to mute audio for 30 seconds, useful for Pandora ads
+
+amixer -q -D pulse sset Master toggle && sleep 30 && amixer -q -D pulse sset Master toggle;

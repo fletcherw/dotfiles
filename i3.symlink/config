@@ -15,7 +15,18 @@ set $w6 6
 set $w7 7
 set $w8 8
 set $w9 9:chat
-set $w0 10:music
+set $w10 10:music
+
+set $w11 11
+set $w12 12
+set $w13 13
+set $w14 14
+set $w15 15
+set $w16 16
+set $w17 17
+set $w18 18
+set $w19 19
+set $w20 20
 
 
 # ----- Visual Appearance ------------------------------------------------------
@@ -72,7 +83,7 @@ bar {
 exec --no-startup-id dropbox start
 
 # Start internet applet
-exec --no-startup-id nm-applet
+exec --no-startup-id wicd-gtk
 
 # Start password manager
 exec --no-startup-id keepassx && i3-msg move [instance="keepassx"] to $w8
@@ -81,7 +92,7 @@ exec --no-startup-id keepassx && i3-msg move [instance="keepassx"] to $w8
 exec --no-startup-id mpd
 
 # Disable trackpad
-exec --no-startup-id xinut --disable "SynPS/2 Synaptics TouchPad"
+exec --no-startup-id xinput --disable "SynPS/2 Synaptics TouchPad"
 
 # Make icon fonts work
 exec --no-startup-id xset +fp /home/fletcher/.fonts
@@ -144,6 +155,9 @@ bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ unmute && p
 bindsym $mod+c       exec quickswitch.py
 bindsym $mod+Tab     workspace back_and_forth
 
+# Screen shotting
+bindsym Print exec scrot
+bindsym $mod+Print exec scrot -s
 
 # mpd
 bindsym Ctrl+Right    exec mpc next && pkill -RTMIN+11 i3blocks
@@ -156,6 +170,10 @@ bindsym Ctrl+Down     exec mpc toggle && pkill -RTMIN+11 i3blocks
 
 
 # ----- Window Management Bindings ---------------------------------------------
+
+for_window [title="Wicd Network Manager"] floating enable
+for_window [class="Keepassx"] floating enable
+for_window [title="Figure [0-9]"] floating enable
 
 # Move workspace to next monitor
 bindsym $mod+x move workspace to output right
@@ -228,7 +246,18 @@ bindsym $mod+6 workspace $w6
 bindsym $mod+7 workspace $w7
 bindsym $mod+8 workspace $w8
 bindsym $mod+9 workspace $w9
-bindsym $mod+0 workspace $w0
+bindsym $mod+0 workspace $w10
+
+bindsym $mod+F1 workspace $w11
+bindsym $mod+F2 workspace $w12
+bindsym $mod+F3 workspace $w13
+bindsym $mod+F4 workspace $w14
+bindsym $mod+F5 workspace $w15
+bindsym $mod+F6 workspace $w16
+bindsym $mod+F7 workspace $w17
+bindsym $mod+F8 workspace $w18
+bindsym $mod+F9 workspace $w19
+bindsym $mod+F10 workspace $w20
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $w1
@@ -240,7 +269,18 @@ bindsym $mod+Shift+6 move container to workspace $w6
 bindsym $mod+Shift+7 move container to workspace $w7
 bindsym $mod+Shift+8 move container to workspace $w8
 bindsym $mod+Shift+9 move container to workspace $w9
-bindsym $mod+Shift+0 move container to workspace $w0
+bindsym $mod+Shift+0 move container to workspace $w10
+
+bindsym $mod+Shift+F1 move container to workspace $w11
+bindsym $mod+Shift+F2 move container to workspace $w12
+bindsym $mod+Shift+F3 move container to workspace $w13
+bindsym $mod+Shift+F4 move container to workspace $w14
+bindsym $mod+Shift+F5 move container to workspace $w15
+bindsym $mod+Shift+F6 move container to workspace $w16
+bindsym $mod+Shift+F7 move container to workspace $w17
+bindsym $mod+Shift+F8 move container to workspace $w18
+bindsym $mod+Shift+F9 move container to workspace $w19
+bindsym $mod+Shift+F10 move container to workspace $w20
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -257,22 +297,22 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 50 px or 50 ppt
+        bindsym j resize grow height 50 px or 50 ppt
+        bindsym k resize shrink height 50 px or 50 ppt
+        bindsym l resize grow width 50 px or 50 ppt
 
-        bindsym Shift+h resize shrink width 2 px or 2 ppt
-        bindsym Shift+j resize grow height 2 px or 2 ppt
-        bindsym Shift+k resize shrink height 2 px or 2 ppt
-        bindsym Shift+l resize grow width 2 px or 2 ppt
+        bindsym Shift+h resize shrink width 10 px or 10 ppt
+        bindsym Shift+j resize grow height 10 px or 10 ppt
+        bindsym Shift+k resize shrink height 10 px or 10 ppt
+        bindsym Shift+l resize grow width 10 px or 10 ppt
 
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 50 px or 50 ppt
+        bindsym Down resize grow height 50 px or 50 ppt
+        bindsym Up resize shrink height 50 px or 50 ppt
+        bindsym Right resize grow width 50 px or 50 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
