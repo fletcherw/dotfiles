@@ -22,11 +22,12 @@ Plugin 'scrooloose/syntastic'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'cmugpi/vim-c0'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'rking/ag.vim'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
@@ -34,7 +35,7 @@ Plugin 'mhinz/vim-signify'
 Plugin 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
-Plugin 'Raimondi/delimitMate'
+"Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
 
 " ---- Extras/Advanced plugins ----------------------------------------
@@ -62,15 +63,12 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_by_filename = 1
+let g:ctrlp_root_markers = ['Makefile']
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_lazy_update = 1
 
-" Ignore these directories
-set wildignore+=*/Library/**
-set wildignore+=*/Ebooks/**
-set wildignore+=*/Photoshop/**
-set wildignore+=*/Pokemon/**
-set wildignore+=*/Camera\ Uploads/**
-set wildignore+=*/Keepass/**
 
 let g:syntastic_C_checkers = ['gcc']
 let g:syntastic_tex_checkers = ['chktex']
@@ -209,6 +207,12 @@ augroup mydelimitMate
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
+" Tabs are tabs in Makefiles
+augroup configgroup
+    autocmd!
+    autocmd BufEnter Makefile setlocal noexpandtab
+augroup END
+
 nmap \q :nohlsearch<CR>
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -219,13 +223,13 @@ au BufRead,BufNewFile *.sig setlocal filetype=sml
 " Ignore junk files
 set wildignore+=*.o,*.obj,*.class,*.swp,*.pyc
 
-" Refresh .vimrc with <leader>rr
-nmap <leader>rr :source ~/.vimrc<CR>
+" Refresh .vimrc with <leader>sv
+nmap <leader>sv :source ~/.vimrc<CR>
 
 " Reload .vimrc after saving
 autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
 
-" Run a make file with <leader>m
+" Run a make file with <F5>
 :nmap <F5> :make<CR>
 
 " Jump to editing last buffer
@@ -246,6 +250,18 @@ autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
 " Jump to definition
 :nmap <leader>j :YcmCompleter GoTo<cr>
 
+" Leader + w to save
+nnoremap <Leader>w :w<CR>
+
+"Remove all trailing whitespace by pressing F6
+"nnoremap <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" jk is escape
+inoremap jk <esc>
+
+" Fast searching
+nnoremap <leader>a :Ag
+
 " If you prefer the Omni-Completion tip window to close when a selection is
 " made, these lines close it on movement in insert mode or when leaving
 " insert mode
@@ -254,6 +270,6 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Only use YCM for C, C++, and Python
-" let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'python': 1 }
+let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'python': 1 }
 
 autocmd VimEnter * nested :source ~/.vimrc

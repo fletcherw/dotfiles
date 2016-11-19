@@ -37,6 +37,7 @@ if [ "$state" != "up" ]; then
 	# echo "$ssid at $speed Mbps ($ipaddr)"
   echo "$ssid [$speed Mbps]"
 
+
 	# short text
 	echo "$ssid"
     echo "#228C4A"
