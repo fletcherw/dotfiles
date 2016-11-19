@@ -1,4 +1,20 @@
-#!/bin/sh
+#!/bin/bash
+
+sp_path=/home/fletcher/.dotfiles/bin/sp
+
+spotify_status=$($sp_path trackstatus)
+
+if [ $spotify_status == "Playing" ]; then
+  longtext="$($sp_path np)"
+  echo "$longtext"
+
+  shorttext="$($sp_path npshort)"
+	echo "$shorttext"
+
+  # color
+  echo ""
+	exit 0
+fi
 
 playing="$(mpc | grep playing | cut -c 2-8)"
 paused="$(mpc | grep paused | cut -c 2-7)"

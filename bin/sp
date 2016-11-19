@@ -117,7 +117,7 @@ function sp-trackstatus {
   org.freedesktop.DBus.Properties.Get                                         \
   string:"$SP_MEMB" string:'PlaybackStatus'                                   \
   | grep -Ev "^method"                           `# Ignore the first line.`   \
-  | sed -E 's/.*"(.*)"/\1/'
+  | sed -E 's/.*"(.*)".*/\1/'
 }
 
 function sp-current {
@@ -130,7 +130,7 @@ function sp-current {
   | column -t -s'|'
 }
 
-function sp-nowplaying {
+function sp-np {
   TRACKTITLE=$(sp-metadata \
   | grep --color=never -E "title" \
   | sed -E 's/[^|]*\|//')
@@ -149,6 +149,24 @@ function sp-nowplaying {
   echo -n " ("
   echo -n $ALBUM 
   echo ")"
+}
+
+function sp-npshort {
+  TRACKTITLE=$(sp-metadata \
+  | grep --color=never -E "title" \
+  | sed -E 's/[^|]*\|//')
+
+  ARTIST=$(sp-metadata \
+  | grep --color=never -E "artist" \
+  | sed -E 's/[^|]*\|//')
+
+  ALBUM=$(sp-metadata \
+  | grep --color=never -E "album\|" \
+  | sed -E 's/[^|]*\|//')
+
+  echo -n $TRACKTITLE 
+  echo -n " - "
+  echo $ARTIST 
 }
 
 function sp-eval {
