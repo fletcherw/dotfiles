@@ -93,7 +93,7 @@ exec --no-startup-id keepassx && i3-msg move [instance="keepassx"] to $w8
 exec --no-startup-id mpd
 
 # Disable trackpad
-exec --no-startup-id xinput --disable "SynPS/2 Synaptics TouchPad"
+exec --no-startup-id sleep 10 && xinput --disable "SynPS/2 Synaptics TouchPad"
 
 # Make icon fonts work
 exec --no-startup-id xset +fp /home/fletcher/.fonts
@@ -118,7 +118,7 @@ exec blueman-applet && pactl load-module module-bluetooth-discover
 set $mode_system System: (l)ock, l(o)gout, (s)uspend, (h)ibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
     bindsym l exec ~/.dotfiles/bin/i3exit lock, mode "default"
-    bindsym e exec ~/.dotfiles/bin/i3exit logout, mode "default"
+    bindsym o exec ~/.dotfiles/bin/i3exit logout, mode "default"
     bindsym s exec ~/.dotfiles/bin/i3exit suspend, mode "default"
     bindsym h exec ~/.dotfiles/bin/i3exit hibernate, mode "default"
     bindsym r exec ~/.dotfiles/bin/i3exit reboot, mode "default"
@@ -132,10 +132,12 @@ mode "$mode_system" {
 
 bindsym $mod+Escape mode "$mode_system"
 
-set $mode_display Display: (d)ock, (u)ndock
+set $mode_display Display: (d)ock, (u)ndock, (e)nglish keyboard, (s)panish keyboard
 mode "$mode_display" {
     bindsym d exec ~/.dotfiles/bin/dock, mode "default"
     bindsym u exec ~/.dotfiles/bin/undock, mode "default"
+    bindsym e exec setxkbmap us, mode "default"
+    bindsym s exec setxkbmap es, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -161,9 +163,9 @@ bindsym Print exec scrot
 bindsym $mod+Print exec scrot -s
 
 # mpd
-bindsym Ctrl+Right    exec mpc next && pkill -RTMIN+11 i3blocks
-bindsym Ctrl+Left     exec mpc prev && pkill -RTMIN+11 i3blocks
-bindsym Ctrl+Down     exec mpc toggle && pkill -RTMIN+11 i3blocks
+bindsym Ctrl+Right    exec /home/fletcher/.dotfiles/bin/sp next && sleep 2 && pkill -RTMIN+11 i3blocks
+bindsym Ctrl+Left     exec /home/fletcher/.dotfiles/bin/sp prev && sleep 2 && pkill -RTMIN+11 i3blocks
+bindsym Ctrl+Down     exec /home/fletcher/.dotfiles/bin/sp play && sleep 2 && pkill -RTMIN+11 i3blocks
 
 
 # bindsym $mod+m       exec ~/.i3/scripts/mpc_control -j && pkill -RTMIN+11 i3blocks
@@ -175,6 +177,9 @@ bindsym Ctrl+Down     exec mpc toggle && pkill -RTMIN+11 i3blocks
 for_window [title="Wicd Network Manager"] floating enable
 for_window [class="Keepassx"] floating enable
 for_window [title="Figure [0-9]"] floating enable
+
+for_window [class="Spotify"] move to workspace $w10
+assign [class="Firefox"] $w1
 
 # Move workspace to next monitor
 bindsym $mod+x move workspace to output right
@@ -194,8 +199,10 @@ bindsym $mod+Return exec urxvt
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
- bindsym $mod+d exec dmenu_run -i -l 10 -fn "Terminess Powerline"
+# task launcher
+bindsym $mod+d exec rofi -show drun
+# window switcher
+bindsym $mod+t exec rofi -show window
 
 # change focus
 bindsym $mod+h focus left

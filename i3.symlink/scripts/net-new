@@ -39,7 +39,7 @@ if [ "$state" != "up" ]; then
 
 
 	# short text
-	echo "$ssid"
+	echo "$ssid"
     echo "#228C4A"
 	exit 0
 fi

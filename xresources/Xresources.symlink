@@ -45,3 +45,19 @@ urxvt*font:xft:Terminess Powerline:size=10
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+rofi.color-window: #171717, #646464, #1e2529
+rofi.color-normal: #171717, #c1c1c1, #171717, #394249, #ffffff
+rofi.color-active: #171717, #80cbc4, #171717, #394249, #80cbc4
+rofi.color-urgent: #171717, #ff1844, #171717, #394249, #ff1844
+rofi.terminal: urxvt
+rofi.font:Terminus 12
+rofi.modi: drun,run,ssh,window
+rofi.display-window: switch
+rofi.window-format: {c} {t}
+rofi.width: 35
+rofi.bw: 2 

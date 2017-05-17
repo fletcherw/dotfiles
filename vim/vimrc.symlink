@@ -246,6 +246,9 @@ autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
 
 " Quick open/close for Nerd Tree
 :nmap <leader>e :NERDTreeToggle<CR>
+"
+" Add date to line 
+:nmap <leader>d :r !date +"\#\# \%a, \%-d \%b \%Y - \%-I:\%M \%p"<CR>
 
 " Jump to definition
 :nmap <leader>j :YcmCompleter GoTo<cr>
@@ -256,8 +259,8 @@ nnoremap <Leader>w :w<CR>
 "Remove all trailing whitespace by pressing F6
 "nnoremap <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-" jk is escape
-inoremap jk <esc>
+" kj is escape
+inoremap kj <esc>
 
 " Fast searching
 nnoremap <leader>a :Ag

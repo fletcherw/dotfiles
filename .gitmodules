@@ -13,3 +13,6 @@
 [submodule "dependencies/i3blocks"]
 	path = dependencies/i3blocks
 	url = https://github.com/vivien/i3blocks
+[submodule "dependencies/rofi"]
+	path = dependencies/rofi
+	url = https://github.com/DaveDavenport/rofi

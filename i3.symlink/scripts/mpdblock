@@ -6,10 +6,11 @@ spotify_status=$($sp_path trackstatus)
 
 if [ $spotify_status == "Playing" ]; then
   longtext="$($sp_path np)"
-  echo "$longtext"
+  
+  echo "$longtext"
 
   shorttext="$($sp_path npshort)"
-	echo "$shorttext"
+	echo "$shorttext"
 
   # color
   echo ""
