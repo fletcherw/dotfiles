@@ -2,53 +2,48 @@
 
 set nocompatible " Remove vi compatibility. This must always be first
 filetype off
-set rtp+=~/.dotfiles/dependencies/vundle
 
-call vundle#begin('~/.dotfiles/vim/plugins')
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" Let Vundle  manage itself
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " ----- Sexy colors and UI stuff --------------------------------------
-Plugin 'bling/vim-airline'
-Plugin 'chriskempson/base16-vim'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'morhetz/gruvbox'
+Plug 'bling/vim-airline'
+Plug 'morhetz/gruvbox'
 
 " ----- Vim as a programmer's text editor -----------------------------
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/syntastic'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-scripts/a.vim'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'cmugpi/vim-c0'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'rking/ag.vim'
+Plug 'scrooloose/nerdtree'
+"Plug 'jistr/vim-nerdtree-tabs'
+"Plug 'scrooloose/syntastic'
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-easytags'
+"Plug 'majutsushi/tagbar'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'vim-scripts/a.vim'
+"Plug 'LaTeX-Box-Team/LaTeX-Box'
+"Plug 'easymotion/vim-easymotion'
+"Plug 'rking/ag.vim'
 
 " ----- Working with Git ----------------------------------------------
-Plugin 'airblade/vim-gitgutter'
-Plugin 'mhinz/vim-signify'
-Plugin 'tpope/vim-fugitive'
+"Plug 'airblade/vim-gitgutter'
+"Plug 'mhinz/vim-signify'
+"Plug 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
-"Plugin 'Raimondi/delimitMate'
-Plugin 'tpope/vim-surround'
+"Plug 'Raimondi/delimitMate'
+"Plug 'tpope/vim-surround'
 
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
-Plugin 'ntpeters/vim-better-whitespace'
-" Automatically insert the closing HTML tag
-Plugin 'HTML-AutoCloseTag'
+Plug 'ntpeters/vim-better-whitespace'
 " Make tmux look like vim-airline (read README for extra instructions)
-"Plugin 'edkolev/tmuxline.vim'
+"Plug 'edkolev/tmuxline.vim'
 
-Plugin 'Valloric/YouCompleteMe' " Requires extra config stuff
-
-call vundle#end()
+call plug#end()
 
 filetype plugin indent on
 
@@ -147,10 +142,6 @@ noremap <silent> Y y$
 set laststatus=2
 
 " Fancy arrow symbols, requires a patched font
-" To install a patched font, run over to
-"     https://github.com/abertsch/Menlo-for-Powerline
-" download all the .ttf files, double-click on them and click "Install"
-" Finally, uncomment the next line
 let g:airline_powerline_fonts = 1
 
 " Show PASTE if in paste mode
@@ -246,8 +237,8 @@ autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
 
 " Quick open/close for Nerd Tree
 :nmap <leader>e :NERDTreeToggle<CR>
-"
-" Add date to line 
+
+" Add date to line
 :nmap <leader>d :r !date +"\#\# \%a, \%-d \%b \%Y - \%-I:\%M \%p"<CR>
 
 " Jump to definition
@@ -257,7 +248,7 @@ autocmd! BufWritePost ~/.vimrc nested :source ~/.vimrc
 nnoremap <Leader>w :w<CR>
 
 "Remove all trailing whitespace by pressing F6
-"nnoremap <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " kj is escape
 inoremap kj <esc>
@@ -271,8 +262,5 @@ nnoremap <leader>a :Ag
 " Change to silent! pclose to preserve command edit window
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" Only use YCM for C, C++, and Python
-let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'python': 1 }
 
 autocmd VimEnter * nested :source ~/.vimrc

@@ -1,0 +1,36 @@
+source "${HOME}/.dependencies/zgen/zgen.zsh"
+
+export PATH=${HOME}/dotfiles/bin:$PATH
+
+ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
+
+if ! zgen saved; then
+  zgen oh-my-zsh
+
+  zgen oh-my-zsh plugins/command-not-found
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/git-extras
+  zgen oh-my-zsh plugins/pip
+  zgen oh-my-zsh plugins/tmux
+  zgen oh-my-zsh plugins/colored-man-pages
+
+  zgen load zsh-users/zsh-syntax-highlighting
+
+  zgen save
+fi
+
+source ${HOME}/.zsh/prompt.zsh
+source ${HOME}/.zsh/config.zsh
+source ${HOME}/.zsh/window.zsh
+
+alias reload!='. ~/.zshrc'
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# matches case insensitive for lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# pasting with tabs doesn't perform completion
+zstyle ':completion:*' insert-tab pending

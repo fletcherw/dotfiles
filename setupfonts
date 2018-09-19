@@ -16,6 +16,7 @@ if [[ $uname =~ "Ubuntu" ]]; then
     echo "sudo ln -s ../conf.avail/70-yes-bitmaps.conf"
     echo "sudo dpkg-reconfigure fontconfig"
     echo ""
+    exit
 fi
 
 bash $dotfiles_dir/dependencies/powerlinefonts/install.sh

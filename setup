@@ -1,12 +1,36 @@
 #!/usr/bin/env bash
-#
-# setup my dotfiles
 
-cd "$(dirname "$0")/.."
+DEPS_DIR=${HOME}/.dependencies
+
+# fetch dependencies
+if [ ! -d "${DEPS_DIR}" ]; then
+    echo "Creating dependency directory ${DEPS_DIR}"
+  mkdir ${DEPS_DIR}
+fi
+
+fetch_repo() {
+  REPO_NAME=$(echo $1 | cut -d/ -f2)
+  if [ ! -d "${DEPS_DIR}/${REPO_NAME}" ]; then
+    echo "Installing dependency $1"
+    git clone "https://github.com/$1.git" "${DEPS_DIR}/${REPO_NAME}"
+  else
+    echo "Updating dependency $1"
+    cd "${DEPS_DIR}/${REPO_NAME}"
+    git pull
+    cd - > /dev/null
+  fi
+  echo ""
+}
+
+fetch_repo tarjoilija/zgen
+fetch_repo stark/siji
+fetch_repo vivien/i3blocks
+fetch_repo powerline/fonts
+fetch_repo DaveDavenport/rofi
+
+# symlink dotfiles
 DOTFILES_ROOT=$(pwd)
-
 set -e
-
 echo ''
 
 info () {
@@ -14,7 +38,11 @@ info () {
 }
 
 user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+  printf "\r  [ \033[0;33m??\033[0m ] $1 "
+}
+
+indent () {
+  printf "\r\n         $1 "
 }
 
 success () {
@@ -36,20 +64,20 @@ link_file () {
   if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
   then
 
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
+    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ]
     then
 
       local currentSrc="$(readlink $dst)"
 
       if [ "$currentSrc" == "$src" ]
       then
-
         skip=true;
-
       else
 
-        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
-        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        user "File already exists: ${dst}"
+        indent "(linking to $(basename "${src}"))"
+        indent "What do you want to do?"
+        indent "[s]kip, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all, [q]uit?"
         read -n 1 action
 
         case "$action" in
@@ -63,19 +91,16 @@ link_file () {
             backup_all=true;;
           s )
             skip=true;;
-          S )
-            skip_all=true;;
+          q )
+            exit;;
           * )
             ;;
         esac
-
       fi
-
     fi
 
     overwrite=${overwrite:-$overwrite_all}
     backup=${backup:-$backup_all}
-    skip=${skip:-$skip_all}
 
     if [ "$overwrite" == "true" ]
     then
@@ -112,8 +137,6 @@ install_dotfiles () {
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
-
-  link_file "$DOTFILES_ROOT/dotfiles/dunst" "$HOME/.config/dunst"
 }
 
 install_dotfiles
