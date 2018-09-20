@@ -3,7 +3,9 @@ ZSHDIR=${HOME}/.zsh
 
 export PATH=${HOME}/dotfiles/bin:$PATH
 
-source ${ZSHDIR}/local.zsh
+if [[ -e ${ZSHDIR}/local.zsh ]]; then
+  source "${ZSHDIR}/local.zsh"
+fi
 
 ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
 
