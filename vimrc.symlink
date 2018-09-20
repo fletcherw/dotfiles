@@ -16,6 +16,7 @@ Plug 'bling/vim-airline'
 Plug 'morhetz/gruvbox'
 
 " ----- Vim as a programmer's text editor -----------------------------
+
 Plug 'scrooloose/nerdtree'
 "Plug 'jistr/vim-nerdtree-tabs'
 "Plug 'scrooloose/syntastic'

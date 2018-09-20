@@ -28,6 +28,9 @@ if [ "$state" != "up" ]; then
 	fi
 
 	ssid="$(iwgetid | cut -d'"' -f2)"
+  if [ -z "$ssid" ]; then
+    ssid="[No SSID]"
+  fi
 	speed="$(iwconfig wlan0 | grep "Bit Rate" | cut -d '=' -f2 | cut -d ' ' -f1)"
 
 	ipaddr="$(ip addr show $INTERFACE | perl -n -e'/inet (.+)\// && print $1')"

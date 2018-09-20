@@ -1,6 +1,9 @@
 source "${HOME}/.dependencies/zgen/zgen.zsh"
+ZSHDIR=${HOME}/.zsh
 
 export PATH=${HOME}/dotfiles/bin:$PATH
+
+source ${ZSHDIR}/local.zsh
 
 ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
 
@@ -19,9 +22,9 @@ if ! zgen saved; then
   zgen save
 fi
 
-source ${HOME}/.zsh/prompt.zsh
-source ${HOME}/.zsh/config.zsh
-source ${HOME}/.zsh/window.zsh
+source ${ZSHDIR}/prompt.zsh
+source ${ZSHDIR}/config.zsh
+source ${ZSHDIR}/window.zsh
 
 alias reload!='. ~/.zshrc'
 

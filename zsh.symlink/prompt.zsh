@@ -29,7 +29,7 @@ git_dirty() {
 
 git_prompt_info () {
  ref=$($git symbolic-ref HEAD 2>/dev/null) || return
-# echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
+ #echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
  echo "${ref#refs/heads/}"
 }
 
@@ -55,9 +55,9 @@ dir_name() {
   echo "%{$fg_bold[blue]%}%~%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(host_name) in $(dir_name) $(git_dirty)$(need_push)\n› '
 set_prompt () {
-  export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
+  export PROMPT=$'\n$(host_name) in $(dir_name) $(git_dirty)$(need_push)\n> '
+  export RPROMPT=""
 }
 
 precmd() {

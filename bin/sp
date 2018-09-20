@@ -314,7 +314,7 @@ else
   if $(type sp-$subcommand > /dev/null 2> /dev/null); then
     # It is. Run it.
     shift
-    eval "sp-$subcommand $@ && pkill -RTMIN+10 i3blocks"
+    eval "sp-$subcommand $@ && pkill -RTMIN+11 i3blocks"
   else
     # It's not. Try a search.
     eval "sp-search $@"

@@ -14,7 +14,7 @@ case "$1" in
         i3-msg exit
         ;;
     suspend)
-        lock && sleep 1 && sudo pm-suspend
+        lock && sleep 2 && sudo pm-suspend
         ;;
     hibernate)
         lock && sudo pm-hibernate
